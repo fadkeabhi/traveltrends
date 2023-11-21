@@ -34,13 +34,15 @@ class TravelAgencyDashboardActivity : AppCompatActivity() {
         buttonAddPackage.setOnClickListener {
             // Handle add package action
             // For simplicity, this example just displays a toast message
-            showToast("Add New Package clicked")
+            startActivity(Intent(this, AddPackageActivity::class.java))
+//            showToast("Add New Package clicked")
         }
 
         buttonDisplayPackages.setOnClickListener {
             // Handle display packages action
             // For simplicity, this example just displays a toast message
-            showToast("Display Current Packages clicked")
+            startActivity(Intent(this, DisplayPackagesActivity::class.java))
+//            showToast("Display Current Packages clicked")
         }
 
         buttonConfirmUserPurchase.setOnClickListener {
