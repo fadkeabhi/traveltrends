@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "618087328068",
+    "project_id": "laptoprental-12e8e",
+    "storage_bucket": "laptoprental-12e8e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:618087328068:android:6b4b719a9a6919b5230f11",
+        "android_client_info": {
+          "package_name": "com.djabrj.traveltrends"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIkzpo6odHzoAGnS30QBfUFF1KABa3yRA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
