@@ -76,6 +76,10 @@ class LoginActivity : AppCompatActivity() {
                     if (roles?.contains("user") == true) {
                         // User role
                         Toast.makeText(this, "Logged in as a regular user", Toast.LENGTH_SHORT).show()
+
+                        val intent = Intent(this, UserDashboardActivity::class.java)
+                        finish()
+                        startActivity(intent)
                     }
                     if (roles?.contains("hotel_owner") == true) {
                         // Hotel owner role

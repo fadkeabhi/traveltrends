@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class TravelAgencyDashboardActivity : AppCompatActivity() {
 
@@ -15,9 +16,13 @@ class TravelAgencyDashboardActivity : AppCompatActivity() {
     private lateinit var buttonConfirmUserPurchase: Button
     private lateinit var buttonLogout: Button
 
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_travel_agency_dashboard)
+
+        auth = FirebaseAuth.getInstance()
 
         // Get UI elements
         textViewWelcome = findViewById(R.id.textViewWelcome)
@@ -52,10 +57,14 @@ class TravelAgencyDashboardActivity : AppCompatActivity() {
         }
 
         buttonLogout.setOnClickListener {
-            // Handle logout action
-            // For simplicity, this example just navigates to the login screen
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish() // Close the current activity
+
+            auth.signOut()
+
+            // After signing out, navigate to the login activity
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
         }
     }
 

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.TravelTrends"
         tools:targetApi="31">
         <activity
+            android:name=".UserDashboardActivity"
+            android:exported="false" />
+        <activity
             android:name=".DisplayPackagesActivity"
             android:exported="false" />
         <activity
