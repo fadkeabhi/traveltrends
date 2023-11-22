@@ -27,7 +27,7 @@ data class TravelPackage(
 
 
 
-class PackageAdapter : RecyclerView.Adapter<PackageAdapter.PackageViewHolder>() {
+class PackageAdapter(param: (TravelPackage) -> Unit) : RecyclerView.Adapter<PackageAdapter.PackageViewHolder>() {
 
     private var packages: List<TravelPackage> = emptyList()
 
@@ -90,7 +90,10 @@ class DisplayPackagesActivity : AppCompatActivity() {
         recyclerViewPackages = findViewById(R.id.recyclerViewPackages)
 
         // Set up RecyclerView
-        packageAdapter = PackageAdapter()
+        packageAdapter = PackageAdapter { selectedPackage ->
+            // Handle item click, e.g., navigate to package details or initiate booking
+
+        }
         recyclerViewPackages.layoutManager = LinearLayoutManager(this)
         recyclerViewPackages.adapter = packageAdapter
 

@@ -32,7 +32,7 @@ class UserDashboardActivity : AppCompatActivity() {
         }
 
         buttonBookPackage.setOnClickListener {
-
+            startActivity(Intent(this, BookPackageActivity::class.java))
         }
 
         buttonLogout.setOnClickListener {
