@@ -12,6 +12,7 @@ import com.google.firebase.ktx.Firebase
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -27,9 +28,18 @@ data class TravelPackage(
 
 
 
-class PackageAdapter(param: (TravelPackage) -> Unit) : RecyclerView.Adapter<PackageAdapter.PackageViewHolder>() {
+class PackageAdapter(private var cardList: List<TravelPackage>) : RecyclerView.Adapter<PackageAdapter.PackageViewHolder>() {
 
-    private var packages: List<TravelPackage> = emptyList()
+    class PackageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        val packageNameTextView: TextView = itemView.findViewById(R.id.packageNameTextView)
+        val packageDescriptionTextView: TextView = itemView.findViewById(R.id.packageDescriptionTextView)
+        val packageDurationTextView: TextView = itemView.findViewById(R.id.packageDurationTextView)
+        val packagePriceTextView: TextView = itemView.findViewById(R.id.packagePriceTextView)
+        val availableSeatsTextView: TextView = itemView.findViewById(R.id.availableSeatsTextView)
+        val button: Button = itemView.findViewById(R.id.button)
+
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PackageViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_package, parent, false)
@@ -37,35 +47,29 @@ class PackageAdapter(param: (TravelPackage) -> Unit) : RecyclerView.Adapter<Pack
     }
 
     override fun onBindViewHolder(holder: PackageViewHolder, position: Int) {
-        val travelPackage = packages[position]
-        holder.bind(travelPackage)
+        val travelPackage = cardList[position]
+        holder.packageNameTextView.text = travelPackage.name
+        holder.packageDescriptionTextView.text = travelPackage.description
+        holder.packageDurationTextView.text = "Duration: ${travelPackage.duration} days"
+        holder.packagePriceTextView.text = "Price: ${travelPackage.price} USD"
+        holder.availableSeatsTextView.text = "Available Seats: ${travelPackage.availableSeats}"
+        holder.button.visibility = View.VISIBLE
+        holder.button.text = "More Details"
+        holder.button.setOnClickListener{
+//            navigateToPackageDetails(travelPackage, it.context)
+        }
     }
 
     override fun getItemCount(): Int {
-        return packages.size
+        return cardList.size
     }
 
     fun setPackages(packages: List<TravelPackage>) {
-        this.packages = packages
+        this.cardList = packages
         notifyDataSetChanged()
     }
 
-    class PackageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val packageNameTextView: TextView = itemView.findViewById(R.id.packageNameTextView)
-        private val packageDescriptionTextView: TextView = itemView.findViewById(R.id.packageDescriptionTextView)
-        private val packageDurationTextView: TextView = itemView.findViewById(R.id.packageDurationTextView)
-        private val packagePriceTextView: TextView = itemView.findViewById(R.id.packagePriceTextView)
-        private val availableSeatsTextView: TextView = itemView.findViewById(R.id.availableSeatsTextView)
-
-        fun bind(travelPackage: TravelPackage) {
-            packageNameTextView.text = travelPackage.name
-            packageDescriptionTextView.text = travelPackage.description
-            packageDurationTextView.text = "Duration: ${travelPackage.duration} days"
-            packagePriceTextView.text = "Price: ${travelPackage.price} USD"
-            availableSeatsTextView.text = "Available Seats: ${travelPackage.availableSeats}"
-        }
-    }
 }
 
 
@@ -89,11 +93,9 @@ class DisplayPackagesActivity : AppCompatActivity() {
         // Get UI elements
         recyclerViewPackages = findViewById(R.id.recyclerViewPackages)
 
+        val dataList = mutableListOf<TravelPackage>()
         // Set up RecyclerView
-        packageAdapter = PackageAdapter { selectedPackage ->
-            // Handle item click, e.g., navigate to package details or initiate booking
-
-        }
+        packageAdapter = PackageAdapter(dataList)
         recyclerViewPackages.layoutManager = LinearLayoutManager(this)
         recyclerViewPackages.adapter = packageAdapter
 

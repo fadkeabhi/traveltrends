@@ -13,6 +13,9 @@
         android:theme="@style/Theme.TravelTrends"
         tools:targetApi="31">
         <activity
+            android:name=".ShowPackageBookins"
+            android:exported="false" />
+        <activity
             android:name=".BookPackageActivity"
             android:exported="false" />
         <activity
