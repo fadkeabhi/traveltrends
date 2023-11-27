@@ -49,7 +49,7 @@ class SignupActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // After successful signup, set default user role to "user" and store additional details
                     val userId = auth.currentUser?.uid ?: ""
-                    setDefaultUserRoleAndDetails(userId, name, phoneNumber)
+                    setDefaultUserRoleAndDetails(userId, name, phoneNumber, email)
 
                     Toast.makeText(baseContext, "Signup successful.", Toast.LENGTH_SHORT).show()
                     finish() // You might want to navigate to the login screen or another activity
@@ -59,13 +59,14 @@ class SignupActivity : AppCompatActivity() {
             }
     }
 
-    private fun setDefaultUserRoleAndDetails(userId: String, name: String, phoneNumber: String) {
+    private fun setDefaultUserRoleAndDetails(userId: String, name: String, phoneNumber: String, email : String) {
         val userRef = db.collection("users").document(userId)
 
         // Set default user role to "user" and store additional details
         val userData = hashMapOf(
             "name" to name,
             "phone_number" to phoneNumber,
+            "email" to email,
             "roles" to listOf("user")
         )
 

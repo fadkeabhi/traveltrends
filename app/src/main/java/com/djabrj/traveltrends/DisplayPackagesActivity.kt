@@ -1,5 +1,6 @@
 package com.djabrj.traveltrends
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,9 +55,12 @@ class PackageAdapter(private var cardList: List<TravelPackage>) : RecyclerView.A
         holder.packagePriceTextView.text = "Price: ${travelPackage.price} USD"
         holder.availableSeatsTextView.text = "Available Seats: ${travelPackage.availableSeats}"
         holder.button.visibility = View.VISIBLE
-        holder.button.text = "More Details"
+        holder.button.text = "Show Bookings"
         holder.button.setOnClickListener{
-//            navigateToPackageDetails(travelPackage, it.context)
+            val intent = Intent(it.context, ShowPackageBookins::class.java)
+            intent.putExtra("packageId", travelPackage.id)
+            intent.putExtra("packageName", travelPackage.name)
+            it.context.startActivity(intent)
         }
     }
 
